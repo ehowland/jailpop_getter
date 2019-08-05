@@ -95,10 +95,10 @@ class InmateRegistryScraper:
 
 	def getDocNumberFromHTML (self, html):
 		matches = re.findall(self.docPattern, html)
-		print("Start===============================")
-		print(html)
-		print("End===============================")
-		print("matches", matches)
+		#print("Start===============================")
+		#print(html)
+		#print("End===============================")
+		#print("matches", matches)
 		if not matches or len(matches) == 0:
 			return 'COULD NOT RETRIEVE'
 

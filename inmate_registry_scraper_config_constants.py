@@ -13,6 +13,6 @@ INMATE_REGISTRY_SEARCH_URL = 'https://appsdoc.wi.gov/lop/searchbasic.do'
 
 DOC_NUMBER_REGEX_PATTERN = 'DOC:\s*<\/SPAN><\/TD>\s*<TD align="Left" nowrap><SPAN class="FormTextData">\s*(\d*)\s*<\/SPAN><\/TD>'
 RACE_REGEX_PATTERN = 'Race:\s*<\/SPAN><\/TD>\s*<TD align="Left"><SPAN class="FormTextData">\s*(\w*)\s*<\/SPAN><\/TD>'
-SEX_REGEX_PATTERN = 'Sex:\s*<\/SPAN><\/TD>\s*<TD align="Left"><SPAN class="FormTextData">\s*(\w*)\s*<\/SPAN><\/TD>'
+SEX_REGEX_PATTERN = 'Sex:\s*<\/SPAN><\/TD>\s*<TD align="Left" nowrap><SPAN class="FormTextData">\s*(\w*)\s*<\/SPAN><\/TD>'
 
 #BIRTHDAY_REGEX_PATTERN = 'Race: \s*<\/SPAN><\/TD>\s*<TD align="Left"><SPAN class="FormTextData">\s*(\w*)\s*<\/SPAN><\/TD>'

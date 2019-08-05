@@ -5,9 +5,13 @@
 # Inmate getter: takes a list of inmates and pulls additional data from Wisconsin's Offender Locator at https://appsdoc.wi.gov/lop/home.do.
 ###
 from __future__ import print_function
+import os, os.path
 
 from inmate_collection import *
 from inmate_getter_config_constants import *
+from jailpop_args_parse import *
+
+
 
 class InmateGetter:
 	def __init__ (self, inmateRegistryScraper):
@@ -19,9 +23,10 @@ class InmateGetter:
 	#	Output: a populated InmateCollection
 	##
 	def loadInmates (self):
+		global args
 		inmates = InmateCollection()
 
-		inmateFile = open(INPUT_FILE_PATH, FILE_MODE_READ)
+		inmateFile = open(args.infile, FILE_MODE_READ)
 
 		isFirstLine = True
 		for line in inmateFile:
@@ -54,7 +59,8 @@ class InmateGetter:
 	#	Output: void -- except for file system
 	##
 	def saveInmateData (self, inmates):
-		outputFile = open(OUTPUT_FILE_PATH, FILE_MODE_WRITE)
+		global args
+		outputFile = open(args.outfile, FILE_MODE_WRITE)
 
 		for inmate in inmates:
 			outputFile.write(str(inmate) + "\n")
@@ -67,6 +73,8 @@ class InmateGetter:
 	#	Output: void -- except for file system
 	##
 	def run (self):
+		global args
+		args = parse_arguments_fix()
 		inmates = self.loadInmates()
 		inmates = self.enhanceInmateData(inmates)
 		self.saveInmateData(inmates)
