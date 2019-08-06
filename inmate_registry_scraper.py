@@ -20,6 +20,7 @@ class InmateRegistryScraper:
 		self.docPattern = re.compile(DOC_NUMBER_REGEX_PATTERN)
 		self.racePattern = re.compile(RACE_REGEX_PATTERN)
 		self.sexPattern = re.compile(SEX_REGEX_PATTERN)
+		self.byearPattern = re.compile(BIRTH_YEAR_REGEX_PATTERN)
 		self.session = None
 
 	def addEnhancedInmateData (self, inmate):
@@ -28,13 +29,11 @@ class InmateRegistryScraper:
 		docNumber = self.getDocNumberFromHTML(html)
 		race = self.getRaceFromHTML(html)
 		sex = self.getSexFromHTML(html)
-		
-		#birthDay = self.getBirthDayFromHTML(html)
-
+		birthYear = self.getBirthYearFromHTML(html)
 		inmate.setDocNumber(docNumber)
 		inmate.setRace(race)
 		inmate.setSex(sex)
-		#inmate.setBirthDay = birthDay
+		inmate.setBirthYear(birthYear)
 
 		return inmate
 
@@ -72,6 +71,7 @@ class InmateRegistryScraper:
 		return html
 
 	def getSearchPostData (self, inmate):
+
 		post_data = {
 			'view': 'demographics',
 			'searchpage': 'basic',
@@ -83,14 +83,14 @@ class InmateRegistryScraper:
 			'MID_NAM': inmate.middleName.strip(),
 			'RACE': '',
 			'GENDER': inmate.sex.strip(),
-			'BIRTH_YEAR': '', #inmate.birthYear,
+			'BIRTH_YEAR': inmate.birthYear.strip(), #inmate.birthYear,
 			'ADR_CITY': '',
 			'ADR_COUNTY': '',
 			'ADR_MIN_ZIP': '',
 			'ADR_MAX_ZIP': '',
 			'DOC_NUM': ''
 		}
-
+		
 		return post_data
 
 	def getDocNumberFromHTML (self, html):
@@ -120,8 +120,13 @@ class InmateRegistryScraper:
 
 		return matches[0]
 
-	def getBirthDayFromHTML (self, html):
-		a = 1
+	def getBirthYearFromHTML (self, html):
+		matches = re.findall(self.byearPattern, html)
+
+		if not matches or len(matches) == 0:
+			return 'COULD NOT RETRIEVE'
+
+		return matches[0]
 
 	def dumpHTML (self, html, filename):
 		#testing method

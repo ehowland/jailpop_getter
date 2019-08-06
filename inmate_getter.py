@@ -30,7 +30,7 @@ class InmateGetter:
 
 		isFirstLine = True
 		for line in inmateFile:
-			print("line", line)
+			if args.verbose >= 3: print("line", line)
 			if isFirstLine:
 				isFirstLine = False
 				if IGNORE_HEADER_ROW:
@@ -48,8 +48,14 @@ class InmateGetter:
 	#	Output: a populated InmateCollection with additional details on each inmate
 	##
 	def enhanceInmateData (self, inmates):
+		global args
+		count = 0
 		for inmate in inmates:
+			count += 1
 			self.inmateRegistryScraper.addEnhancedInmateData(inmate)
+			if args.verbose >= 1:
+				if count%50 == 0: 
+					print("Enhanced data on ", count, "people")
 
 		return inmates
 
@@ -60,7 +66,7 @@ class InmateGetter:
 	##
 	def saveInmateData (self, inmates):
 		global args
-		outputFile = open(args.outfile, FILE_MODE_WRITE)
+		outputFile = open(args.outfile+".csv", FILE_MODE_WRITE)
 
 		for inmate in inmates:
 			outputFile.write(str(inmate) + "\n")

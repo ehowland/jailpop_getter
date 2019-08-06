@@ -25,8 +25,8 @@ class Inmate:
 	def setSex (self, sex):
 		self.sex = sex
 
-	def setBirthDay (self, birthDay):
-		self.birthDay = birthDay
+	def setBirthYear (self, birthYear):
+		self.birthYear = birthYear
 
 	def __str__ (self):
 		return ','.join([self.firstName, self.lastName, self.middleName, str(self.birthYear), str(self.docNumber), self.race, self.sex])
