@@ -15,4 +15,4 @@ inmate_getter.run()
 stop_time = datetime.datetime.now()
 duration = stop_time - start_time
 print("End   Time:", stop_time)
-print ("Total Clock Time in seconds:", duration.total_seconds())
+print ("Total Clock Time in seconds:", duration.total_seconds(), (duration.total_seconds()/60), "min")

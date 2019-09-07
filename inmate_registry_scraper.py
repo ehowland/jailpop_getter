@@ -19,20 +19,20 @@ class InmateRegistryScraper:
 		# Precompiling our regex to avoid load
 		self.docPattern = re.compile(DOC_NUMBER_REGEX_PATTERN)
 		self.racePattern = re.compile(RACE_REGEX_PATTERN)
-		self.sexPattern = re.compile(SEX_REGEX_PATTERN)
+		self.genderPattern = re.compile(GENDER_REGEX_PATTERN)
 		self.byearPattern = re.compile(BIRTH_YEAR_REGEX_PATTERN)
 		self.session = None
 
 	def addEnhancedInmateData (self, inmate):
 		html = self.pullInmateHTML(inmate)
 
-		docNumber = self.getDocNumberFromHTML(html)
+		docID = self.getDocNumberFromHTML(html)
 		race = self.getRaceFromHTML(html)
-		sex = self.getSexFromHTML(html)
+		gender = self.getGenderFromHTML(html)
 		birthYear = self.getBirthYearFromHTML(html)
-		inmate.setDocNumber(docNumber)
+		inmate.setDocID(docID)
 		inmate.setRace(race)
-		inmate.setSex(sex)
+		inmate.setGender(gender)
 		inmate.setBirthYear(birthYear)
 
 		return inmate
@@ -82,8 +82,8 @@ class InmateRegistryScraper:
 			'FIRST_NAM': inmate.firstName.strip(),
 			'MID_NAM': inmate.middleName.strip(),
 			'RACE': '',
-			'GENDER': inmate.sex.strip(),
-			'BIRTH_YEAR': inmate.birthYear.strip(), #inmate.birthYear,
+			'GENDER': inmate.gender.strip(),
+			'BIRTH_YEAR': str(inmate.birthYear), 
 			'ADR_CITY': '',
 			'ADR_COUNTY': '',
 			'ADR_MIN_ZIP': '',
@@ -112,8 +112,8 @@ class InmateRegistryScraper:
 
 		return matches[0]
 
-	def getSexFromHTML (self, html):
-		matches = re.findall(self.sexPattern, html)
+	def getGenderFromHTML (self, html):
+		matches = re.findall(self.genderPattern, html)
 
 		if not matches or len(matches) == 0:
 			return 'COULD NOT RETRIEVE'

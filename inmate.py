@@ -6,27 +6,44 @@
 ###
 
 class Inmate:
-	def __init__ (self, firstName = '', lastName = '', middleName = '', birthYear = 1):
+	def __init__ (self, firstName = '', lastName = '', middleName = '', birthYear = ""):
 		self.firstName = firstName
 		self.lastName = lastName
 		self.middleName = middleName
 		self.birthYear = birthYear
-		self.docNumber = ''
+		self.docID = ''
 		self.race = ''
-		self.sex = ''
+		self.gender = ''
 		self.birthDay = ''
+		self.daneID = ''
 
-	def setDocNumber (self, docNumber):
-		self.docNumber = docNumber
+	def setFirstName (self, firstName):
+		self.firstName = firstName
 
-	def setRace (self, race):
-		self.race = race
+	def setLastName (self, lastName):
+		self.lastName = lastName
 
-	def setSex (self, sex):
-		self.sex = sex
+	def setMiddleName (self, middleName):
+		self.middleName = middleName
 
-	def setBirthYear (self, birthYear):
+	def setbirthYear (self, birthYear):
 		self.birthYear = birthYear
 
+#do not update if do not have good data
+	def setDocID (self, docID):
+		if docID and docID != "COULD NOT RETRIEVE": self.docID = docID
+
+	def setRace (self, race):
+		if race and race != "COULD NOT RETRIEVE": self.race = race
+
+	def setGender (self, gender):
+		if gender and gender != "COULD NOT RETRIEVE": self.gender = gender
+
+	def setBirthYear (self, birthYear):
+		if birthYear and birthYear != "COULD NOT RETRIEVE": self.birthYear = birthYear
+
+	def setDaneID (self, daneID):
+		if daneID != "COULD NOT RETRIEVE": self.daneID = daneID
+
 	def __str__ (self):
-		return ','.join([self.firstName, self.lastName, self.middleName, str(self.birthYear), str(self.docNumber), self.race, self.sex])
+		return ','.join([self.daneID, self.firstName, self.lastName, self.middleName, str(self.birthYear), str(self.docID), self.race, self.gender])
